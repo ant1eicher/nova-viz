@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--
+  Demo: Pink Tomato (focusflow) commits by hour of day
+  Data: git log extracted 2026-07-15 (356 commits, hours in SAST)
+  Defaults chosen: bar chart (histogram over hour bins 0-23), fixed 900x520,
+  deterministic sorted data, no animation on load, D3 v7.9.0 vendored locally.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pink Tomato — Commits by Hour of Day</title>
+<script src="../../vendor/d3.v7.9.0.min.js"></script>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0; padding: 24px;
+    background: #0f1117; color: #e6e6e6;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  h1 { font-size: 1.3rem; font-weight: 600; margin: 0 0 4px; }
+  p.sub { color: #9aa0a6; margin: 0 0 20px; font-size: .9rem; }
+  .bar { fill: #ff6b81; }
+  .bar:hover { fill: #ffa1b0; }
+  .axis text { fill: #9aa0a6; font-size: 11px; }
+  .axis line, .axis path { stroke: #3a3f4b; }
+  .grid line { stroke: #232733; }
+  .grid path { stroke: none; }
+  .tooltip {
+    position: absolute; padding: 8px 10px;
+    background: rgba(0,0,0,.85); color: #fff;
+    border-radius: 4px; pointer-events: none;
+    opacity: 0; transition: opacity .15s; font-size: 12px; z-index: 1000;
+  }
+  .tooltip.visible { opacity: 1; }
+  footer { margin-top: 18px; color: #5f6672; font-size: .75rem; }
+</style>
+</head>
+<body>
+<h1>🍅 Pink Tomato — Commits by Hour of Day</h1>
+<p class="sub">356 commits · ant1eicher/focusflow · hours in SAST · generated 2026-07-15</p>
+<div id="chart"></div>
+<div id="tooltip" class="tooltip"></div>
+<footer>Built by Nova ✨ with D3 v7.9.0 (vendored, offline)</footer>
+<script>
+const raw = [{"hour":0,"commits":1},{"hour":5,"commits":1},{"hour":7,"commits":14},{"hour":8,"commits":10},{"hour":9,"commits":9},{"hour":10,"commits":6},{"hour":11,"commits":21},{"hour":12,"commits":46},{"hour":13,"commits":32},{"hour":14,"commits":18},{"hour":15,"commits":34},{"hour":16,"commits":19},{"hour":17,"commits":5},{"hour":18,"commits":10},{"hour":19,"commits":13},{"hour":20,"commits":34},{"hour":21,"commits":33},{"hour":22,"commits":34},{"hour":23,"commits":16}];
+
+// Fill missing hours with zero, sort deterministically by hour.
+const byHour = new Map(raw.map(d => [d.hour, d.commits]));
+const data = d3.range(24).map(h => ({ hour: h, commits: byHour.get(h) ?? 0 }));
+
+const width = 900, height = 520;
+const margin = { top: 16, right: 16, bottom: 48, left: 52 };
+
+const x = d3.scaleBand()
+  .domain(data.map(d => d.hour))
+  .range([margin.left, width - margin.right])
+  .padding(0.15);
+
+const y = d3.scaleLinear()
+  .domain([0, d3.max(data, d => d.commits)]).nice()
+  .range([height - margin.bottom, margin.top]);
+
+const svg = d3.select('#chart').append('svg')
+  .attr('viewBox', `0 0 ${width} ${height}`)
+  .attr('width', width).attr('height', height);
+
+// horizontal gridlines
+svg.append('g').attr('class', 'grid')
+  .attr('transform', `translate(${margin.left},0)`)
+  .call(d3.axisLeft(y).tickSize(-(width - margin.left - margin.right)).tickFormat(''));
+
+svg.selectAll('.bar')
+  .data(data)
+  .join('rect')
+  .attr('class', 'bar')
+  .attr('x', d => x(d.hour))
+  .attr('y', d => y(d.commits))
+  .attr('width', x.bandwidth())
+  .attr('height', d => y(0) - y(d.commits))
+  .on('mouseover', function (event, d) {
+    d3.select('#tooltip')
+      .classed('visible', true)
+      .html(`<strong>${String(d.hour).padStart(2, '0')}:00–${String(d.hour).padStart(2, '0')}:59</strong><br/>${d.commits} commit${d.commits === 1 ? '' : 's'}`)
+      .style('left', (event.pageX + 10) + 'px')
+      .style('top', (event.pageY - 10) + 'px');
+  })
+  .on('mouseout', () => d3.select('#tooltip').classed('visible', false));
+
+svg.append('g').attr('class', 'axis')
+  .attr('transform', `translate(0,${height - margin.bottom})`)
+  .call(d3.axisBottom(x).tickFormat(h => String(h).padStart(2, '0')));
+
+svg.append('g').attr('class', 'axis')
+  .attr('transform', `translate(${margin.left},0)`)
+  .call(d3.axisLeft(y).ticks(8));
+
+// axis labels
+svg.append('text')
+  .attr('x', width / 2).attr('y', height - 10)
+  .attr('text-anchor', 'middle').attr('fill', '#9aa0a6').attr('font-size', 12)
+  .text('Hour of day (SAST)');
+
+svg.append('text')
+  .attr('transform', 'rotate(-90)')
+  .attr('x', -height / 2).attr('y', 16)
+  .attr('text-anchor', 'middle').attr('fill', '#9aa0a6').attr('font-size', 12)
+  .text('Commits');
+</script>
+</body>
+</html>

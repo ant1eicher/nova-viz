@@ -11,7 +11,7 @@ function showTip(event, d) {
       ${d.variant} · ${d.powertrain}<br/>
       Kerb: ${d.kerb_kg} kg · GVM: ${d.gvm_kg} kg<br/>
       <strong>Payload: ${d.payload_kg} kg</strong><br/>
-      <em>${d.source}</em>${d.confidence !== "high" ? "<br/>⚠ confidence: " + d.confidence : ""}`)
+      ${d.note ? d.note + "<br/>" : ""}<em>${d.source}</em>${d.confidence !== "high" ? "<br/>⚠ confidence: " + d.confidence : ""}`)
     .style("left", (event.pageX + 12) + "px").style("top", (event.pageY - 10) + "px");
 }
 function hideTip() { tip().classed("visible", false); }

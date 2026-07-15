@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- SUV Payload Dashboard - 5-seater SUVs, SA market, GVM vs effective payload.
+     Data: data.json (researched 2026-07-15, SA spec sheets). D3 v7.9.0 vendored. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5-Seater SUV Payload Shootout</title>
+<script src="../../vendor/d3.v7.9.0.min.js"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0; padding: 24px; background: #0f1117; color: #e6e6e6;
+    display: flex; flex-direction: column; align-items: center; }
+  h1 { font-size: 1.35rem; font-weight: 600; margin: 0 0 4px; text-align: center; }
+  p.sub { color: #9aa0a6; margin: 0 0 16px; font-size: .9rem; text-align: center; max-width: 760px; }
+  .controls { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+    background: #181c26; border: 1px solid #232733; border-radius: 10px;
+    padding: 12px 18px; margin-bottom: 18px; font-size: .85rem; }
+  .controls label { display: flex; align-items: center; gap: 8px; color: #c6cad2; }
+  .controls output { color: #ff6b81; font-weight: 600; min-width: 3.2em; }
+  .controls input[type=range] { accent-color: #ff6b81; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 10px; font-size: .8rem; }
+  .legend .item { display: flex; align-items: center; gap: 5px; cursor: pointer; user-select: none; }
+  .legend .item.off { opacity: .3; }
+  .legend .swatch { width: 12px; height: 12px; border-radius: 3px; }
+  .axis text { fill: #9aa0a6; font-size: 11px; }
+  .axis line, .axis path { stroke: #3a3f4b; }
+  .grid line { stroke: #232733; } .grid path { stroke: none; }
+  .barlabel { fill: #e6e6e6; font-size: 11px; }
+  .carname { fill: #c6cad2; font-size: 11.5px; }
+  .carname.mine { fill: #ffd166; font-weight: 700; }
+  .threshold-line { stroke: #ffd166; stroke-width: 2; stroke-dasharray: 6 4; }
+  .threshold-text { fill: #ffd166; font-size: 11px; font-weight: 600; }
+  .tooltip { position: absolute; padding: 10px 12px; background: rgba(0,0,0,.88); color: #fff;
+    border-radius: 6px; pointer-events: none; opacity: 0; transition: opacity .15s;
+    font-size: 12px; z-index: 1000; max-width: 280px; line-height: 1.5; }
+  .tooltip.visible { opacity: 1; }
+  h2 { font-size: 1.05rem; font-weight: 600; margin: 26px 0 8px; color: #c6cad2; }
+  footer { margin-top: 24px; color: #5f6672; font-size: .75rem; text-align: center; max-width: 720px; line-height: 1.6; }
+  #verdict { background: #181c26; border: 1px solid #232733; border-radius: 10px;
+    padding: 12px 18px; margin-top: 6px; font-size: .85rem; max-width: 760px; color: #c6cad2; }
+  #verdict strong { color: #ff6b81; }
+</style>
+</head>
+<body>
+<h1>🚙 5-Seater SUV Payload Shootout</h1>
+<p class="sub">Effective payload = GVM − kerb weight. Can it legally carry 4 large adults plus baggage?
+SA-market variants, spec-sheet data. Click legend to filter by origin. Drag sliders to change the load scenario.</p>
+<div class="controls">
+  <label>Adults <input type="range" id="adults" min="1" max="5" value="4" step="1"><output id="adultsOut">4</output></label>
+  <label>kg per adult <input type="range" id="perAdult" min="60" max="130" value="100" step="5"><output id="perAdultOut">100</output></label>
+  <label>Baggage kg <input type="range" id="baggage" min="0" max="200" value="80" step="10"><output id="baggageOut">80</output></label>
+</div>
+<div class="legend" id="legend"></div>
+<h2>Payload ranking</h2>
+<div id="bars"></div>
+<h2>GVM vs payload</h2>
+<div id="scatter"></div>
+<div id="verdict"></div>
+<div id="tooltip" class="tooltip"></div>
+<footer>Sources: official Jaecoo/Chery SA spec sheets, car-specs.za.net SA listings. VW Tiguan tare likely excludes driver (payload slightly optimistic).
+Ford Territory: US brand, China-built. ★ = Anton's Jaecoo J7 SHS. Built by Nova ✨ · D3 v7.9.0 · 2026-07-15</footer>
+<script src="app.js"></script>
+</body>
+</html>

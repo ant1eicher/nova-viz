@@ -1,0 +1,18 @@
+[
+  {"name":"Jaecoo J7 SHS","variant":"SHS 1.5TGDI PHEV (SA spec)","origin":"China","powertrain":"PHEV","kerb_kg":1795,"gvm_kg":2210,"payload_kg":415,"confidence":"high","source":"jaecoo.co.za official SA spec sheet (GVM); auto-data.net (kerb)"},
+  {"name":"Chery Tiggo 7 Pro Max","variant":"1.6T 2WD","origin":"China","powertrain":"Petrol","kerb_kg":1437,"gvm_kg":1895,"payload_kg":458,"confidence":"high","source":"chery-midrand.co.za official SA brochure"},
+  {"name":"Chery Tiggo 7 Pro Max AWD","variant":"1.6T AWD","origin":"China","powertrain":"Petrol","kerb_kg":1526,"gvm_kg":1984,"payload_kg":458,"confidence":"high","source":"chery-midrand.co.za official SA brochure"},
+  {"name":"Haval H6 2.0T","variant":"2.0T Ultra Luxury 4x4 DCT (2025)","origin":"China","powertrain":"Petrol","kerb_kg":1715,"gvm_kg":2135,"payload_kg":420,"confidence":"high","source":"car-specs.za.net"},
+  {"name":"Haval H6 HEV","variant":"1.5T Hybrid Ultra Luxury DHT (2025)","origin":"China","powertrain":"HEV","kerb_kg":1720,"gvm_kg":2140,"payload_kg":420,"confidence":"high","source":"car-specs.za.net"},
+  {"name":"BYD Sealion 6","variant":"1.5 Dynamic PHEV (2025)","origin":"China","powertrain":"PHEV","kerb_kg":1940,"gvm_kg":2350,"payload_kg":410,"confidence":"high","source":"car-specs.za.net"},
+  {"name":"Haval Jolion Pro","variant":"1.5T Super Luxury DCT (2025)","origin":"China","powertrain":"Petrol","kerb_kg":1465,"gvm_kg":1870,"payload_kg":405,"confidence":"high","source":"car-specs.za.net"},
+  {"name":"Toyota RAV4 Hybrid","variant":"2.5 VX Hybrid E-Four","origin":"Japan","powertrain":"HEV","kerb_kg":1730,"gvm_kg":2230,"payload_kg":500,"confidence":"high","source":"car-specs.za.net"},
+  {"name":"Hyundai Tucson","variant":"2.0 Premium A/T (2025)","origin":"Korea","powertrain":"Petrol","kerb_kg":1490,"gvm_kg":2105,"payload_kg":615,"confidence":"high","source":"car-specs.za.net"},
+  {"name":"Kia Sportage","variant":"1.6T-GDI GT-Line A/T","origin":"Korea","powertrain":"Petrol","kerb_kg":1497,"gvm_kg":2115,"payload_kg":618,"confidence":"high","source":"car-specs.za.net"},
+  {"name":"VW Tiguan","variant":"1.4 TSI Life DSG 110kW (2026)","origin":"Europe","powertrain":"Petrol","kerb_kg":1384,"gvm_kg":2140,"payload_kg":756,"confidence":"medium","source":"car-specs.za.net (tare likely excl. driver; ~680 on EU basis)"},
+  {"name":"Mazda CX-5","variant":"2.0 Dynamic A/T (2024)","origin":"Japan","powertrain":"Petrol","kerb_kg":1575,"gvm_kg":2065,"payload_kg":490,"confidence":"high","source":"car-specs.za.net"},
+  {"name":"Nissan X-Trail","variant":"2.5 Acenta CVT 5-seat (2025)","origin":"Japan","powertrain":"Petrol","kerb_kg":1578,"gvm_kg":2040,"payload_kg":462,"confidence":"high","source":"car-specs.za.net"},
+  {"name":"Ford Territory","variant":"1.8T EcoBoost Trend A/T (2026)","origin":"China","powertrain":"Petrol","kerb_kg":1705,"gvm_kg":2025,"payload_kg":320,"confidence":"high","source":"car-specs.za.net (US brand, built in China)"},
+  {"name":"Volvo XC60 T8","variant":"T8 PHEV Plus Bright AWD (2025)","origin":"Europe","powertrain":"PHEV","kerb_kg":2158,"gvm_kg":2660,"payload_kg":502,"confidence":"high","source":"car-specs.za.net"},
+  {"name":"Honda CR-V","variant":"1.5T Exclusive CVT (2024)","origin":"Japan","powertrain":"Petrol","kerb_kg":1747,"gvm_kg":2350,"payload_kg":603,"confidence":"high","source":"car-specs.za.net"}
+]
